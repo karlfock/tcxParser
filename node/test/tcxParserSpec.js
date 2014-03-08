@@ -8,23 +8,19 @@ var expect = require("chai").expect,
     tcxXml2 = testHelper.tcxXml2,
     tcxParser = testHelper.tcxParser;
 
-describe("TcxParser", function () {
-    describe('parse()', function () {
+describe("TcxParser", function() {
+    describe('parse()', function() {
 
-        it("should parse tcx files to JS object", function () {
+        it("should parse tcx files to JS object", function() {
 
-            [tcxXml, tcxXml2].forEach(function (xml) {
+            [tcxXml, tcxXml2].forEach(function(xml) {
 
 
-                tcxParser.parse(xml, function (track) {
-
-                    console.log("track:", JSON.stringify(track));
+                tcxParser.parse(xml, function(track) {
 
                     var firstLap, firstTrackPoint, firstPosition;
 
-//                    expect(track).to.have.a.property("date", "2013-12-17T07:30:01Z");
                     expect(track.laps).to.be.instanceof(Array);
-//                    expect(track.laps).to.have.length(8);
 
                     // test lap object
                     firstLap = track.laps[0];
