@@ -1,32 +1,32 @@
-define(['moment'], function (moment) {
-    "use strict";
+"use strict";
 
-    function UploadedTracks() {
-        this._tracks = [];
-    }
+var moment = require("moment");
 
-    UploadedTracks.prototype.clear = function  () {
-        this._tracks = [];
-    }
+function UploadedTracks() {
+    this._tracks = [];
+}
 
-    // TODO: type check
-    UploadedTracks.prototype.addTrack = function (track) {
-        this._tracks.push(track);
-    };
+UploadedTracks.prototype.clear = function () {
+    this._tracks = [];
+}
 
-    UploadedTracks.prototype.getTracksSummary = function () {
-        var tracks = this._tracks.map(function (track) {
-            return {
-                date: track.getTrackSummary().getDate(),
-                distanceInKm: track.getTrackSummary().getDistanceInKm()
-            };
-        });
+// TODO: type check
+UploadedTracks.prototype.addTrack = function (track) {
+    this._tracks.push(track);
+};
 
-        tracks.sort(function (a, b) {
-            return moment(a.date).diff(moment(b.date));
-        });
-        return tracks;
-    };
+UploadedTracks.prototype.getTracksSummary = function () {
+    var tracks = this._tracks.map(function (track) {
+        return {
+            date: track.getTrackSummary().getDate(),
+            distanceInKm: track.getTrackSummary().getDistanceInKm()
+        };
+    });
 
-    return UploadedTracks;
-});
+    tracks.sort(function (a, b) {
+        return moment(a.date).diff(moment(b.date));
+    });
+    return tracks;
+};
+
+exports.UploadedTracks = UploadedTracks;

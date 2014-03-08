@@ -1,26 +1,21 @@
-define(['angular', 'lib/uploadedTracks'], function (angular, UploadedTracks) {
-	'use strict';
+"use strict";
+require("../../bower_components/angular/angular.js");
 
-  // Demonstrate how to register services
-  // In this case it is a simple value service.
-	var app = angular.module('myApp.services', []).value('version', '0.1');
-
-
-    app.service('trackService', function() {
-        var uploadedTracks = new UploadedTracks();
+angular.module('myApp.services', []).value('version', '0.1')
+    .service('trackService', function () {
+        var uploadedTracksModule = require("./lib/uploadedTracks.js"),
+            uploadedTracks = new uploadedTracksModule.UploadedTracks();
 
         return {
-            clear: function  () {
+            clear: function () {
                 uploadedTracks.clear();
             },
-            getTracksSummary: function() {
+            getTracksSummary: function () {
                 return uploadedTracks.getTracksSummary();
 
             },
-            addTrack: function(value) {
+            addTrack: function (value) {
                 uploadedTracks.addTrack(value);
             }
         }
     });
-
-});

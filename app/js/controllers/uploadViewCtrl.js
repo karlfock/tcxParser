@@ -1,6 +1,13 @@
-define(["moment"], function (moment) {
-    return ['$scope', 'trackService', function ($scope, trackService) {
-        $scope.tracks = trackService.getTracksSummary();
-        $scope.$apply();
-    }];
-});
+"use strict";
+//require("moment");
+
+module.exports  = ['$scope', 'trackService', '$location', function ($scope, trackService, $location) {
+    var tracks = trackService.getTracksSummary();
+    if(tracks.length > 0) {
+        $scope.tracks = tracks;
+    } else {
+        $location.path("/");
+    }
+
+}];
+

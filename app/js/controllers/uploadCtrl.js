@@ -1,35 +1,38 @@
-define(['lib/track'], function (Track) {
-    return [ '$scope', '$upload', '$location', '$route', 'trackService',
-        function ($scope, $upload, $location, $route, trackService) {
+"use strict";
 
-            $scope.onFileSelect = function ($files) {
+var track = require("../lib/track");
 
-                trackService.clear();
+module.exports = [ '$scope', '$upload', '$location', '$route', 'trackService',
+    function ($scope, $upload, $location, $route, trackService) {
 
-                for (var i = 0; i < $files.length; i++) {
+        $scope.onFileSelect = function ($files) {
 
+            trackService.clear();
 
-                    var file = $files[i];
-                    $scope.upload = $upload.upload({
-                        url: 'upload',
-                        file: file
-                    }).progress(
-                        function (evt) {
-                            console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+            for (var i = 0; i < $files.length; i++) {
 
-                        }).success(function (data, status, headers, config) {
+                var file = $files[i];
+                $scope.upload = $upload.upload({
+                    url: 'upload',
+                    file: file
+                }).progress(
+                    function (evt) {
+                        console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
 
-                            console.log("upload finished: ", data);
+                    }).success(function (data, status, headers, config) {
 
-                            trackService.addTrack(new Track(data));
+                        console.log("upload finished: ", data);
 
-                            if ($location.path() === "/uploadView") {
-                                $route.reload();
-                            } else {
-                                $location.path("/uploadView");
-                            }
-                        });
-                }
-            };
-        }];
-});
+                        trackService.addTrack(new track.Track(data));
+
+                        if ($location.path() === "/uploadView") {
+                            $route.reload();
+                        } else {
+                            $location.path("/uploadView");
+                        }
+                    }).error(function () {
+                        console.log("Error uploading file");
+                    });
+            }
+        };
+    }];

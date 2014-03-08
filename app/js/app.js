@@ -1,20 +1,20 @@
-define([
-	'angular',
-	'filters',
-	'services',
-	'directives',
-	'controllers',
-	'angularRoute',
-	], function (angular, filters, services, directives, controllers) {
-		'use strict';
+require ("../../bower_components/angular/angular.js");
+require ("./filters.js");
+require ("./services.js");
+require ("./directives.js");
+require ("./controllers.js");
+require ("../../bower_components/angular-route/angular-route.js");
 
-		// Declare app level module which depends on filters, and services
-		
-		return angular.module('myApp', [
-			'ngRoute',
-			'myApp.controllers',
-			'myApp.filters',
-			'myApp.services',
-			'myApp.directives'
-		]);
-});
+'use strict';
+
+// Declare app level module which depends on filters, and services
+
+var app = angular.module('myApp', [
+    'ngRoute',
+    'myApp.controllers',
+    'myApp.filters',
+    'myApp.services',
+    'myApp.directives'
+]);
+
+module.exports = app;

@@ -1,35 +1,18 @@
-define(['angular',
-    'angularFileUpload',
-    'services'],
-    function (angular) {
-	'use strict';
+"use strict";
 
-	return angular.module('myApp.controllers', ['myApp.services', 'angularFileUpload'])
+require("../../bower_components/angular/angular.js");
+require("../../bower_components/ng-file-upload/angular-file-upload.js");
+require("./services.js");
 
-        .controller('UploadCtrl', ['$scope', '$injector', 'trackService', function($scope, $injector, trackService) {
-            require(['controllers/uploadCtrl'], function(uploadCtrl) {
-                $injector.invoke(uploadCtrl, this, {'$scope': $scope, 'trackService': trackService});
-            });
-        }])
 
-        .controller('UploadViewCtrl', ['$scope', '$injector', 'trackService', function($scope, $injector, trackService) {
-            require(['controllers/uploadViewCtrl'], function(uploadViewCtrl) {
-                $injector.invoke(uploadViewCtrl, this, {'$scope': $scope, 'trackService': trackService});
-            });
-        }])
+angular.module('myApp.controllers', ['myApp.services', 'angularFileUpload'])
 
-		// Sample controller where service is being used
-		.controller('MyCtrl1', ['$scope', 'version', function ($scope, version) {
-			$scope.scopedAppVersion = version;
-		}])
-		// More involved example where controller is required from an external file
-		.controller('MyCtrl2', ['$scope', '$injector', function($scope, $injector) {
-			require(['controllers/myctrl2'], function(myctrl2) {
-				// injector method takes an array of modules as the first argument
-				// if you want your controller to be able to use components from
-				// any of your other modules, make sure you include it together with 'ng'
-				// Furthermore we need to pass on the $scope as it's unique to this controller
-				$injector.invoke(myctrl2, this, {'$scope': $scope});
-			});
-		}]);
-});
+    .controller('UploadCtrl', ['$scope', '$injector', 'trackService', function ($scope, $injector, trackService) {
+        var UploadCtrl = require("./controllers/uploadCtrl");
+        $injector.invoke(UploadCtrl, this, {'$scope': $scope, 'trackService': trackService});
+    }])
+
+    .controller('UploadViewCtrl', ['$scope', '$injector', 'trackService', function ($scope, $injector, trackService) {
+        var UploadViewCtrl = require("./controllers/uploadViewCtrl.js");
+        $injector.invoke(UploadViewCtrl, this, {'$scope': $scope, 'trackService': trackService});
+    }]);
