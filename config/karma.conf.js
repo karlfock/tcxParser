@@ -1,28 +1,29 @@
-module.exports = function(config) {
-	config.set({
-		basePath: '../',
-		frameworks: ['jasmine', 'requirejs'],
-		files: [
-			{pattern: 'app/js/*.js', included: false},
-			{pattern: 'app/js/**/*.js', included: false},
-			{pattern: 'test/unit.js', included: false},
-			{pattern: 'test/unit/*.js', included: false},
-			{pattern: 'test/unit/**/*.js', included: false},
-            {pattern: 'test/resources/**/*.js', included: false},
-            {pattern: 'bower_components/**/*.js', included: false},
-			// needs to be last http://karma-runner.github.io/0.10/plus/requirejs.html
-			'test/main-test.js'
-	    ],
+module.exports = function (config) {
+    config.set({
+        basePath: '../',
+        frameworks: ['jasmine', 'browserify'],
 
+        files: [
+            "test/unit/dummySpec.js",
+            "test/unit/trackSpec.js"
+        ],
+
+        reporters: ['progress'],
         autoWatch: true,
-
         LogLevel: config.LOG_DEBUG,
-
+        colors: true,
         browsers: ['Chrome'],
+        captureTimeout: 60000,
+        singleRun: false,
 
-        junitReporter: {
-            outputFile: 'test_out/unit.xml',
-            suite: 'unit'
+        // Browserify config
+        browserify: {
+            watch: true,
+            debug: true
+        },
+
+        preprocessors: {
+            "test/unit/*": ['browserify']
         }
-	});
+    });
 };
