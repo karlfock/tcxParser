@@ -4,8 +4,8 @@ module.exports = function (config) {
         frameworks: ['jasmine', 'browserify'],
 
         files: [
-            "test/unit/dummySpec.js",
-            "test/unit/trackSpec.js"
+            "test/unit/trackSpec.js",
+            "test/unit/trackSearcherSpec.js"
         ],
 
         reporters: ['progress'],

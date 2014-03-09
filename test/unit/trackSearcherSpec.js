@@ -1,58 +1,58 @@
-define([
-    'baseTestUrl/resources/parsedTcxJson',
-    'lib/track',
-    'lib/trackSearcher'
-], function (tcxData, Track, TrackSearcher) {
-    'use strict';
+"use strict";
 
-    describe("TrackSearcher", function () {
-        describe('getFastestSubTrackByDistance()', function () {
-            it("get the fastest sub track with a specified distance", function () {
+var NBR_TRACK_POINTS_IN_TEST_FILE = 454;
 
-                var subTrack,
-                    firstSubTrackPoint, nextToLastSubTrackPoint, lastSubTrackPoint, afterLastSubTrackPoint,
-                    diffTargetDistanceFirstLast, diffTargetDistanceFirstNextToLast, diffTargetDistanceFirstAfterLast,
-                    targetDistance = 100,
-                    expectedSubTrackLength = 7,
-                    trackSearcher,
-                    track,
-                    NBR_TRACK_POINTS_IN_TEST_FILE = 454;
+var Track = require("../../app/js/lib/track").Track;
+var TrackSearcher = require("../../app/js/lib/trackSearcher").TrackSearcher;
+var tcxData = require("../resources/parsedTcxJson.js");
 
-                track = new Track(tcxData);
-                trackSearcher = new TrackSearcher(track);
+describe("TrackSearcher", function () {
+    describe('getFastestSubTrackByDistance()', function () {
+        it("get the fastest sub track with a specified distance", function () {
 
-                subTrack = trackSearcher.getFastestSubTrackByDistance(targetDistance);
-                expect(subTrack.length).toEqual(expectedSubTrackLength);
+            var subTrack,
+                firstSubTrackPoint, nextToLastSubTrackPoint, lastSubTrackPoint, afterLastSubTrackPoint,
+                diffTargetDistanceFirstLast, diffTargetDistanceFirstNextToLast, diffTargetDistanceFirstAfterLast,
+                targetDistance = 100,
+                expectedSubTrackLength = 7,
+                trackSearcher,
+                track,
+                NBR_TRACK_POINTS_IN_TEST_FILE = 454;
 
-                // verify that the difference between the first point and the
-                // last point in the sub track is the closest to the target distance.
-                // also compare with the points before and after, the one after
-                // being outside the subtrack.
-                firstSubTrackPoint = subTrack[0];
+            track = new Track(tcxData);
+            trackSearcher = new TrackSearcher(track);
 
-                nextToLastSubTrackPoint = subTrack[expectedSubTrackLength - 2];
-                lastSubTrackPoint = subTrack[expectedSubTrackLength - 1];
-                afterLastSubTrackPoint = trackSearcher.getNextPoint(lastSubTrackPoint);
+            subTrack = trackSearcher.getFastestSubTrackByDistance(targetDistance);
+            expect(subTrack.length).toEqual(expectedSubTrackLength);
 
-                diffTargetDistanceFirstLast = Math.abs(targetDistance - (lastSubTrackPoint.distanceMeters - firstSubTrackPoint.distanceMeters));
-                diffTargetDistanceFirstNextToLast = Math.abs(targetDistance - (nextToLastSubTrackPoint.distanceMeters - firstSubTrackPoint.distanceMeters));
-                diffTargetDistanceFirstAfterLast = Math.abs(targetDistance - (afterLastSubTrackPoint.distanceMeters - firstSubTrackPoint.distanceMeters));
+            // verify that the difference between the first point and the
+            // last point in the sub track is the closest to the target distance.
+            // also compare with the points before and after, the one after
+            // being outside the subtrack.
+            firstSubTrackPoint = subTrack[0];
 
-                expect(diffTargetDistanceFirstLast < diffTargetDistanceFirstNextToLast).toEqual(true);
-                expect(diffTargetDistanceFirstLast < diffTargetDistanceFirstAfterLast).toEqual(true);
+            nextToLastSubTrackPoint = subTrack[expectedSubTrackLength - 2];
+            lastSubTrackPoint = subTrack[expectedSubTrackLength - 1];
+            afterLastSubTrackPoint = trackSearcher.getNextPoint(lastSubTrackPoint);
 
-                // distance is bigger than entire track, should get all track points
-                subTrack = trackSearcher.getFastestSubTrackByDistance(8000);
-                expect(subTrack.length).toEqual(NBR_TRACK_POINTS_IN_TEST_FILE);
+            diffTargetDistanceFirstLast = Math.abs(targetDistance - (lastSubTrackPoint.distanceMeters - firstSubTrackPoint.distanceMeters));
+            diffTargetDistanceFirstNextToLast = Math.abs(targetDistance - (nextToLastSubTrackPoint.distanceMeters - firstSubTrackPoint.distanceMeters));
+            diffTargetDistanceFirstAfterLast = Math.abs(targetDistance - (afterLastSubTrackPoint.distanceMeters - firstSubTrackPoint.distanceMeters));
 
-                subTrack = trackSearcher.getFastestSubTrackByDistance(0);
-                expect(subTrack.length).toEqual(0);
+            expect(diffTargetDistanceFirstLast < diffTargetDistanceFirstNextToLast).toEqual(true);
+            expect(diffTargetDistanceFirstLast < diffTargetDistanceFirstAfterLast).toEqual(true);
 
-                // if positive number, it will always try to find two points
-                // as close as possible to that target distance.
-                subTrack = trackSearcher.getFastestSubTrackByDistance(1);
-                expect(subTrack.length).toEqual(2);
-            });
+            // distance is bigger than entire track, should get all track points
+            subTrack = trackSearcher.getFastestSubTrackByDistance(8000);
+            expect(subTrack.length).toEqual(NBR_TRACK_POINTS_IN_TEST_FILE);
+
+            subTrack = trackSearcher.getFastestSubTrackByDistance(0);
+            expect(subTrack.length).toEqual(0);
+
+            // if positive number, it will always try to find two points
+            // as close as possible to that target distance.
+            subTrack = trackSearcher.getFastestSubTrackByDistance(1);
+            expect(subTrack.length).toEqual(2);
         });
     });
 });

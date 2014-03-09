@@ -1,6 +1,6 @@
 "use strict";
 
-require("moment");
+var moment = require("moment");
 
 function TrackSearcher(track) {
     this.track = track;
@@ -96,4 +96,4 @@ TrackSearcher.prototype.getNextPoint = function (trackPoint) {
     return nextPoint;
 };
 
-module.exports = TrackSearcher;
+exports.TrackSearcher = TrackSearcher;
