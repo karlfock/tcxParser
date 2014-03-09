@@ -7,7 +7,7 @@ var util = require('util'),
     events = require('events'),
     formidable = require("formidable"),
     moment = require("moment"),
-    TcxParser = require("../node/lib/tcxParser.js").TcxParser,
+    TcxParser = require("./lib/tcxParser").TcxParser,
     uuid = require('node-uuid');
 
 

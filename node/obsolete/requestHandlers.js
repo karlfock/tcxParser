@@ -2,7 +2,7 @@ var querystring = require("querystring"),
     fs = require("fs"),
     formidable = require("formidable"),
     moment = require("moment"),
-    TcxParser = require("./lib/tcxParser.js").TcxParser,
+    TcxParser = require("./../lib/tcxParser.js").TcxParser,
     tmpFilePath = "./uploaded/uploaded" + moment().format("YYYY-MM-DDTHH-mm-ss");
 
 function start(response) {
