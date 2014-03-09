@@ -8,6 +8,11 @@ var track = new trackModule.Track(tcxData);
 
 describe('Track', function () {
 
+    describe('getTrackId()', function () {
+        it("should get a uuid for the track", function () {
+            expect(track.getId()).toEqual("trackId");
+        });
+    });
 
     describe('getTrackPoints()', function () {
         it("should get the track points of a track", function () {

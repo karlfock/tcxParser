@@ -1,8 +1,8 @@
 "use strict";
-require("../../bower_components/angular/angular.js");
+require("../../bower_components/angular/angular");
 
 angular.module('myApp.services', []).value('version', '0.1')
     .service('uploadedTracks', function() {
-        var UploadedTracks = require("./lib/uploadedTracks.js").UploadedTracks;
+        var UploadedTracks = require("./lib/uploadedTracks").UploadedTracks;
         return new UploadedTracks();
     });

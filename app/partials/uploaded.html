@@ -1,6 +1,4 @@
-
-
-<p ng-show="failedUploads">Failed uploads:</p>
+<p ng-show="failedUploads.length">Failed uploads:</p>
 
 <div ng-repeat="failedUpload in failedUploads">
     <p>
@@ -9,14 +7,13 @@
 </div>
 
 
-<p>Uploaded file:</p>
+<p ng-show="tracks.length">Uploaded files:</p>
 
 <div ng-repeat="track in tracks">
     <p>
-        date: {{track.date}}
-    </p>
-
-    <p>
-        distance: {{track.distanceInKm}}
+        <a href="#/viewTrack/{{track.id}}">
+            date: {{track.date}},
+            distance: {{track.distanceInKm}} km
+        </a>
     </p>
 </div>

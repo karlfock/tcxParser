@@ -21,6 +21,7 @@ describe("TcxParser", function() {
                     var firstLap, firstTrackPoint, firstPosition;
 
                     expect(track.laps).to.be.instanceof(Array);
+                    expect(track.id).to.equal("trackId");
 
                     // test lap object
                     firstLap = track.laps[0];

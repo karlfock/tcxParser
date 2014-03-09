@@ -1,15 +1,20 @@
 var parseString = require('xml2js').parseString,
     trackPointId;
 
-function TcxParser() {}
+function TcxParser(trackId) {
+    this.trackId = trackId;
+}
 
 TcxParser.prototype.parse = function(tcxXml, callback) {
+    var trackId = this.trackId;
+
     trackPointId = 0;
 
     parseString(tcxXml, function(err, result) {
         var activity = result.TrainingCenterDatabase.Activities[0].Activity[0];
 
         var tcxData = {
+            id: trackId,
             date: activity.Id[0],
 
             // map the structure to don't have arrays with just one element, 

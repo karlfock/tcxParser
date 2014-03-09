@@ -1,8 +1,8 @@
 "use strict";
 
-require("../../bower_components/angular/angular.js")
-require("../../bower_components/ng-file-upload/angular-file-upload.js")
-require("./services.js");
+require("../../bower_components/angular/angular")
+require("../../bower_components/ng-file-upload/angular-file-upload")
+require("./services");
 
 
 angular.module('myApp.directives', ['myApp.services'])

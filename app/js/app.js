@@ -1,9 +1,9 @@
-require ("../../bower_components/angular/angular.js");
-require ("./filters.js");
-require ("./services.js");
-require ("./directives.js");
-require ("./controllers.js");
-require ("../../bower_components/angular-route/angular-route.js");
+require ("../../bower_components/angular/angular");
+require ("./filters");
+require ("./services");
+require ("./directives");
+require ("./controllers");
+require ("../../bower_components/angular-route/angular-route");
 
 'use strict';
 

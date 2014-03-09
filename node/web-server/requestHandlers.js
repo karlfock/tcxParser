@@ -10,7 +10,8 @@ function upload(request, response) {
     console.log("Request handler 'upload' was called.");
 
     var form = new formidable.IncomingForm(),
-        tmpFilePath = "./uploaded/uploaded" + moment().format("YYYY-MM-DDTHH-mm") + "-" + uuid.v1();
+        trackId = uuid.v1(),
+        tmpFilePath = "./uploaded/uploaded" + moment().format("YYYY-MM-DDTHH-mm") + "-" + trackId;
 
     console.log("about to parse, form");
 
@@ -60,7 +61,7 @@ function upload(request, response) {
                     console.log("got data:", data.substring(0, 100), "...");
                 }
 
-                var tcxParser = new TcxParser(data);
+                var tcxParser = new TcxParser(trackId);
                 tcxParser.parse(data, function (track) {
 
                     response.write(JSON.stringify(track));

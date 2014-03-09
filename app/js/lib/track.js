@@ -3,6 +3,7 @@
 var moment = require("moment");
 
 function Track(trackData) {
+    this.id = trackData.id;
     this.laps = trackData.laps;
     this._date = trackData.date;
     this._trackPoints = null;
@@ -75,6 +76,10 @@ Track.prototype.getTrackSummary = function () {
 
     return this._trackSummary;
 
+};
+
+Track.prototype.getId = function () {
+    return this.id;
 };
 
 exports.Track = Track;
