@@ -1,5 +1,15 @@
-<p>Uploaded file:</p>
 
+
+<p ng-show="failedUploads">Failed uploads:</p>
+
+<div ng-repeat="failedUpload in failedUploads">
+    <p>
+        file name: {{failedUpload.fileName}}
+    </p>
+</div>
+
+
+<p>Uploaded file:</p>
 
 <div ng-repeat="track in tracks">
     <p>

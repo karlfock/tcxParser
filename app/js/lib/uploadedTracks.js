@@ -3,6 +3,7 @@
 var moment = require("moment");
 
 function UploadedTracks() {
+    this._failedUploads = [];
     this._tracks = [];
 }
 
@@ -28,5 +29,15 @@ UploadedTracks.prototype.getTracksSummary = function () {
     });
     return tracks;
 };
+
+UploadedTracks.prototype.addUploadFailedInfo = function (fileName) {
+    this._failedUploads.push({
+        fileName: fileName
+    });
+};
+
+UploadedTracks.prototype.getUploadedFailedInfo = function () {
+    return this._failedUploads;
+}
 
 exports.UploadedTracks = UploadedTracks;

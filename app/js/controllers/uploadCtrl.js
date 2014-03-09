@@ -2,12 +2,12 @@
 
 var track = require("../lib/track");
 
-module.exports = [ '$scope', '$upload', '$location', '$route', 'trackService',
-    function ($scope, $upload, $location, $route, trackService) {
+module.exports = [ '$scope', '$upload', '$location', '$route', 'uploadedTracks',
+    function ($scope, $upload, $location, $route, uploadedTracks) {
 
         $scope.onFileSelect = function ($files) {
 
-            trackService.clear();
+            uploadedTracks.clear();
 
             for (var i = 0; i < $files.length; i++) {
 
@@ -23,15 +23,16 @@ module.exports = [ '$scope', '$upload', '$location', '$route', 'trackService',
 
                         console.log("upload finished: ", data);
 
-                        trackService.addTrack(new track.Track(data));
+                        uploadedTracks.addTrack(new track.Track(data));
 
                         if ($location.path() === "/uploadView") {
                             $route.reload();
                         } else {
                             $location.path("/uploadView");
                         }
-                    }).error(function () {
-                        console.log("Error uploading file");
+                    }).error(function (errorMsg, errorCode, headersGetter, data) {
+                        console.log("Error uploading file: ", data.file.name);
+                        uploadedTracks.addUploadFailedInfo(data.file.name);
                     });
             }
         };
