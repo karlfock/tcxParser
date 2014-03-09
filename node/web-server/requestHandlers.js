@@ -72,4 +72,20 @@ function upload(request, response) {
     });
 }
 
+function viewTrack(request, response) {
+
+    if (request.url.query.trackId) {
+        console.log("viewTrack request handler called with trackId: ", request.url.query.trackId);
+    } else {
+        console.log("viewTrack called without trackId");
+    }
+
+    response.writeHead(200, {
+        "Content-Type": "text/html"
+    });
+    response.write("ok");
+    response.end();
+}
+
 exports.upload = upload;
+exports.viewTrack = viewTrack;

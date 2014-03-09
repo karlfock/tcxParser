@@ -1,1 +1,10 @@
-<p>displaying track with id: {{trackId}}</p>
+<p ng-show="track">
+    displaying track with id: {{track.id}}
+    date: {{track.date}},
+    distance: {{track.distanceInKm}} km
+</p>
+
+
+<p ng-hide="track">
+    No track uploaded with id: {{idInUrl}}
+</p>

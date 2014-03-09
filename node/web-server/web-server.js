@@ -62,9 +62,9 @@ HttpServer.prototype.handleRequest_ = function (req, res) {
     req.url = this.parseUrl_(req.url);
 
     var pathHandlers = this.handlers.pathHandlers;
-    var path = req.url.path;
+    var path = req.url.pathname.replace(/\/$/g, "");    // remove last / in for example /viewTrack/
     if(pathHandlers[path]) {
-        console.log("found path handler for", req.url.path);
+        console.log("found path handler for", path);
         pathHandlers[path](req, res);
         return;
     }
