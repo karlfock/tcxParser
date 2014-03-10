@@ -1,6 +1,7 @@
 var formidable = require("formidable"),
     moment = require("moment"),
     TcxParser = require("./../lib/tcxParser").TcxParser,
+    TrackStorage = require("./../lib/trackStorage").TrackStorage,
     uuid = require('node-uuid'),
     fs = require('fs');
 
@@ -11,7 +12,8 @@ function upload(request, response) {
 
     var form = new formidable.IncomingForm(),
         trackId = uuid.v1(),
-        tmpFilePath = "./uploaded/uploaded" + moment().format("YYYY-MM-DDTHH-mm") + "-" + trackId;
+//        tmpFilePath = "./uploaded/uploaded" + moment().format("YYYY-MM-DDTHH-mm") + "-" + trackId;
+        tmpFilePath = "./uploaded/" + trackId;
 
     console.log("about to parse, form");
 
@@ -73,12 +75,18 @@ function upload(request, response) {
 }
 
 function viewTrack(request, response) {
+    var trackStorage;
 
-    if (request.url.query.trackId) {
-        console.log("viewTrack request handler called with trackId: ", request.url.query.trackId);
+    var trackId = request.url.query.trackId;
+    if (trackId) {
+        console.log("viewTrack request handler called with trackId: ", trackId);
     } else {
         console.log("viewTrack called without trackId");
     }
+
+    // get track by id, from file or db or whatever
+    trackStorage = new TrackStorage();
+    trackStorage.getTrackById(trackId)
 
     response.writeHead(200, {
         "Content-Type": "text/html"
