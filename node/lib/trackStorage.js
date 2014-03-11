@@ -1,42 +1,40 @@
 var fs = require("fs"),
-    exec = require("child_process").exec;
+    TcxParser = require("./../lib/tcxParser").TcxParser;
 
 function TrackStorage() {
-
 }
 
-TrackStorage.prototype.getTrackById = function (id) {
+TrackStorage.prototype.getTrackById = function (trackId, callback, errCallback) {
 
     // TODO: get from db...
-    return this.getTrackFromFile(id);
+    this.getTrackFromFile(trackId, callback, errCallback);
 
 };
 
-TrackStorage.prototype.getTrackFromFile = function (id) {
-    // i.e from uploaded/uploaded2014-03-10T22-13-d9f95ba0-a898-11e3-97d1-b1df3ef31179
-    // where id is the part after the date, above starting after 22-13-
+TrackStorage.prototype.getTrackFromFile = function (trackId, callback, errCallback) {
 
-    // what is working directory?
-//    exec('pwd',
-//        function (error, stdout, stderr) {
-//            console.log('stdout: ' + stdout);
-//            console.log('stderr: ' + stderr);
-//            if (error !== null) {
-//                console.log('exec error: ' + error);
-//            }
-//        });
-//   working dir: /Users/karlfock/GoogleDrive/dev/js/tcxParser
 
-    var path = "./uploaded/" + id;
+    var path = "./uploaded/" + trackId;
 
     fs.readFile(path, 'utf8', function (err, data) {
         if (err) {
             console.log("getTrackFromFile: file not found", path);
+            errCallback();
         }
-        if(data) {
+        if (data) {
             console.log("got file by id: ", data.substring(0, 300), "...");
+
+            var tcxParser = new TcxParser(trackId);
+            tcxParser.parse(data, function (track) {
+                callback(track);
+            });
         }
     });
 };
 
 exports.TrackStorage = TrackStorage;
+
+
+module.exports.create = function (x1, y1, x2, y2) {
+    return new Line(x1, y1, x2, y2);
+};

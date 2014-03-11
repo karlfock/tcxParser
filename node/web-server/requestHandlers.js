@@ -12,12 +12,11 @@ function upload(request, response) {
 
     var form = new formidable.IncomingForm(),
         trackId = uuid.v1(),
-//        tmpFilePath = "./uploaded/uploaded" + moment().format("YYYY-MM-DDTHH-mm") + "-" + trackId;
         tmpFilePath = "./uploaded/" + trackId;
 
     console.log("about to parse, form");
 
-    form.on('progress', function (bytesReceived, bytesExpected) {
+    form.on('progress', function(bytesReceived, bytesExpected) {
         var progress = {
             type: 'progress',
             bytesReceived: bytesReceived,
@@ -26,10 +25,10 @@ function upload(request, response) {
         console.log("upload progress", progress);
         // TODO: use socket.io on client and server to show progress
 
-//        socket.broadcast(JSON.stringify(progress));
+        //        socket.broadcast(JSON.stringify(progress));
     });
 
-    form.parse(request, function (error, fields, files) {
+    form.parse(request, function(error, fields, files) {
         console.log("parsing done");
 
         /* Possible error on Windows systems:
@@ -39,7 +38,7 @@ function upload(request, response) {
         console.log("uploaded file path:", uploadedFile);
 
 
-        fs.rename(uploadedFile, tmpFilePath, function (err) {
+        fs.rename(uploadedFile, tmpFilePath, function(err) {
             if (err) {
                 fs.unlink(tmpFilePath);
                 fs.rename(files.upload.path, tmpFilePath);
@@ -50,7 +49,7 @@ function upload(request, response) {
             "Content-Type": "text/html"
         });
 
-        fs.readFile(tmpFilePath, 'utf8', function (err, data) {
+        fs.readFile(tmpFilePath, 'utf8', function(err, data) {
             if (err) {
                 console.log("there was an error: ", err);
                 response.writeHead(500);
@@ -64,7 +63,7 @@ function upload(request, response) {
                 }
 
                 var tcxParser = new TcxParser(trackId);
-                tcxParser.parse(data, function (track) {
+                tcxParser.parse(data, function(track) {
 
                     response.write(JSON.stringify(track));
                     response.end();
@@ -86,13 +85,23 @@ function viewTrack(request, response) {
 
     // get track by id, from file or db or whatever
     trackStorage = new TrackStorage();
-    trackStorage.getTrackById(trackId)
-
-    response.writeHead(200, {
-        "Content-Type": "text/html"
+    trackStorage.getTrackById(trackId, function(track) {
+        console.log("got track by id, sending response...")
+        response.writeHead(200, {
+            "Content-Type": "text/html"
+        });
+        response.write(JSON.stringify(track));
+        response.end();
+    }, function() {
+        console.log("Error callback: file not found");
+        response.writeHead(500, {
+            'Content-Type': 'text/html'
+        });
+        response.write("File with id " + trackId + " not found");
+        response.end();
     });
-    response.write("ok");
-    response.end();
+
+
 }
 
 exports.upload = upload;
