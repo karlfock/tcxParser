@@ -2,6 +2,10 @@
 
 BASE_DIR=`dirname $0`
 
+# move to folder of script / to able to run same script from here or one folder up
+cd "$(dirname "$0")" 
+cd ..
+
 echo ""
 echo "Starting Karma Server (http://karma-runner.github.io)"
 echo $BASE_DIR

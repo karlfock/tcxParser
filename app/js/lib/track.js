@@ -11,9 +11,9 @@ function Track(trackData) {
     this._trackSummary = null;
 }
 
-Track.prototype.getTrackPoints = function () {
+Track.prototype.getTrackPoints = function() {
     if (!this._trackPoints) {
-        this._trackPoints = this.laps.reduce(function (prev, curr, idx) {
+        this._trackPoints = this.laps.reduce(function(prev, curr, idx) {
             return prev.concat(curr.trackPoints);
         }, []);
     }
@@ -21,14 +21,14 @@ Track.prototype.getTrackPoints = function () {
     return this._trackPoints;
 };
 
-Track.prototype.getTpLength = function () {
+Track.prototype.getTpLength = function() {
     if (!this._tpLength) {
         return this.getTrackPoints().length;
     }
     return this._tpLength;
 };
 
-Track.prototype.createSubTrack = function (param) {
+Track.prototype.createSubTrack = function(param) {
     var subTrack = [],
         i, tpLength = this.getTpLength(),
         from = param.from,
@@ -46,12 +46,12 @@ Track.prototype.createSubTrack = function (param) {
     return subTrack;
 };
 
-Track.prototype.getLastTrackPoint = function () {
+Track.prototype.getLastTrackPoint = function() {
     // last track point contains time only, thus subtracting 2.
     return this.getTrackPoints()[this.getTpLength() - 2];
 };
 
-Track.prototype.getTrackSummary = function () {
+Track.prototype.getTrackSummary = function() {
 
 
     if (!this._trackSummary) {
@@ -60,13 +60,13 @@ Track.prototype.getTrackSummary = function () {
             trackDate = this._date;
 
         this._trackSummary = {
-            getDistanceInKm: function (decimals) {
+            getDistanceInKm: function(decimals) {
                 decimals = decimals || 1;
                 var kms = lastTrackPoint.distanceMeters / 1000,
                     truncBase = Math.pow(10, decimals);
                 return Math.round(kms * truncBase) / truncBase;
             },
-            getDate: function (format) {
+            getDate: function(format) {
                 format = format || "YYYY-MM-DD";
                 return moment(trackDate).format(format);
 
@@ -78,10 +78,10 @@ Track.prototype.getTrackSummary = function () {
 
 };
 
-Track.prototype.getId = function () {
+Track.prototype.getId = function() {
     return this.id;
 };
 
-module.exports.create = function  (trackData) {
+module.exports.create = function(trackData) {
     return new Track(trackData);
 };
