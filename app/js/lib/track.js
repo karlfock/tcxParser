@@ -82,4 +82,6 @@ Track.prototype.getId = function () {
     return this.id;
 };
 
-exports.Track = Track;
+module.exports.create = function  (trackData) {
+    return new Track(trackData);
+};

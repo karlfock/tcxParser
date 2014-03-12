@@ -1,6 +1,6 @@
 "use strict";
 
-var track = require("../lib/track");
+var Track = require("../lib/track");
 
 module.exports = function ($scope, $upload, $location, $route, uploadedTracks) {
 
@@ -22,7 +22,7 @@ module.exports = function ($scope, $upload, $location, $route, uploadedTracks) {
 
                     console.log("upload finished: ", data);
 
-                    uploadedTracks.addTrack(new track.Track(data));
+                    uploadedTracks.addTrack(Track.create(data));
 
                     if ($location.path() === "/uploadView") {
                         $route.reload();

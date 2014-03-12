@@ -1,17 +1,17 @@
-(function() {
-    "use strict";
+"use strict";
 
-    var fs = require("fs"),
-        TcxParser = require("../../lib/tcxParser.js").TcxParser;
+var fs = require("fs"),
+    TcxParser = require("../../lib/tcxParser.js");
 
-    function TestHelper() {
-        this.tcxParser = new TcxParser("trackId");
-        this.tcxXml = fs.readFileSync("./test/resources/test.tcx", "utf8");
+function TestHelper() {
+    this.tcxParser = TcxParser.create("trackId");
+    this.tcxXml = fs.readFileSync("./test/resources/test.tcx", "utf8");
 
-        // this file fails...
-        this.tcxXml2 = fs.readFileSync("./test/resources/test2.tcx", "utf8");
-    }
+    // this file fails...
+    this.tcxXml2 = fs.readFileSync("./test/resources/test2.tcx", "utf8");
+}
 
-    exports.TestHelper = TestHelper;
 
-})();
+module.exports.create = function () {
+    return new TestHelper();
+}

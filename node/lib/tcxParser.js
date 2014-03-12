@@ -56,4 +56,7 @@ function getTrackPointsFromLap(lap, lapIndex) {
     });
 }
 
-exports.TcxParser = TcxParser;
+
+module.exports.create = function  (trackId) {
+    return new TcxParser(trackId);
+}

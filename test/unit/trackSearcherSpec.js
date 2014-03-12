@@ -2,8 +2,8 @@
 
 var NBR_TRACK_POINTS_IN_TEST_FILE = 454;
 
-var Track = require("../../app/js/lib/track").Track;
-var TrackSearcher = require("../../app/js/lib/trackSearcher").TrackSearcher;
+var Track = require("../../app/js/lib/track");
+var TrackSearcher = require("../../app/js/lib/trackSearcher");
 var tcxData = require("../resources/parsedTcxJson.js");
 
 describe("TrackSearcher", function () {
@@ -19,8 +19,8 @@ describe("TrackSearcher", function () {
                 track,
                 NBR_TRACK_POINTS_IN_TEST_FILE = 454;
 
-            track = new Track(tcxData);
-            trackSearcher = new TrackSearcher(track);
+            track = Track.create(tcxData);
+            trackSearcher = TrackSearcher.create(track);
 
             subTrack = trackSearcher.getFastestSubTrackByDistance(targetDistance);
             expect(subTrack.length).toEqual(expectedSubTrackLength);

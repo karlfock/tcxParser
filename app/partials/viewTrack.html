@@ -1,11 +1,7 @@
-<p ng-show="track">
-    {{track.origin}} <br>
-    displaying track with id: {{track.id}}
-    date: {{track.date}},
-    distance: {{track.distanceInKm}} km
-</p>
-
-
-<p ng-hide="track">
-    No track uploaded with id: {{idInUrl}}
+<p>{{trackInfo.message}} </p>
+<p ng-show="trackInfo.track">
+    
+    displaying track with id: {{trackInfo.track.id}}
+    date: {{trackInfo.track.date}},
+    distance: {{trackInfo.track.distanceInKm}} km
 </p>

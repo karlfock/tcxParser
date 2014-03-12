@@ -2,8 +2,8 @@
 
 var expect = require("chai").expect,
 
-    TestHelper = require("./helper/testHelper").TestHelper,
-    testHelper = new TestHelper(),
+    TestHelper = require("./helper/testHelper"),
+    testHelper = TestHelper.create(),
     tcxXml = testHelper.tcxXml,
     tcxXml2 = testHelper.tcxXml2,
     tcxParser = testHelper.tcxParser;

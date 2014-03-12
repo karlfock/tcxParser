@@ -2,9 +2,9 @@
 
 var NBR_TRACK_POINTS_IN_TEST_FILE = 454;
 
-var trackModule = require("../../app/js/lib/track");
+var Track = require("../../app/js/lib/track");
 var tcxData = require("../resources/parsedTcxJson.js");
-var track = new trackModule.Track(tcxData);
+var track = Track.create(tcxData);
 
 describe('Track', function () {
 

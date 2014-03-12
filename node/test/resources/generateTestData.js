@@ -1,5 +1,5 @@
-var TestHelper = require("../helper/testHelper").TestHelper,
-    testHelper = new TestHelper(),
+var TestHelper = require("../helper/testHelper"),
+    testHelper = TestHelper.create(),
     tcxXml = testHelper.tcxXml,
     tcxParser = testHelper.tcxParser;
 

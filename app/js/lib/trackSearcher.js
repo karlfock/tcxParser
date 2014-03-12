@@ -96,4 +96,7 @@ TrackSearcher.prototype.getNextPoint = function (trackPoint) {
     return nextPoint;
 };
 
-exports.TrackSearcher = TrackSearcher;
+module.exports.create = function  (track) {
+    // TODO: type check
+    return new TrackSearcher(track);
+}

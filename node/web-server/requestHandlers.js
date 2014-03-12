@@ -1,7 +1,7 @@
 var formidable = require("formidable"),
     moment = require("moment"),
-    TcxParser = require("./../lib/tcxParser").TcxParser,
-    TrackStorage = require("./../lib/trackStorage").TrackStorage,
+    TcxParser = require("./../lib/tcxParser"),
+    TrackStorage = require("./../lib/trackStorage"),
     uuid = require('node-uuid'),
     fs = require('fs');
 
@@ -62,7 +62,7 @@ function upload(request, response) {
                     console.log("got data:", data.substring(0, 100), "...");
                 }
 
-                var tcxParser = new TcxParser(trackId);
+                var tcxParser = TcxParser.create(trackId);
                 tcxParser.parse(data, function(track) {
 
                     response.write(JSON.stringify(track));
@@ -84,7 +84,7 @@ function viewTrack(request, response) {
     }
 
     // get track by id, from file or db or whatever
-    trackStorage = new TrackStorage();
+    trackStorage = TrackStorage.create();
     trackStorage.getTrackById(trackId, function(track) {
         console.log("got track by id, sending response...")
         response.writeHead(200, {

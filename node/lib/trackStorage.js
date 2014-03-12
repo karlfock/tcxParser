@@ -1,5 +1,5 @@
 var fs = require("fs"),
-    TcxParser = require("./../lib/tcxParser").TcxParser;
+    TcxParser = require("./../lib/tcxParser");
 
 function TrackStorage() {
 }
@@ -24,7 +24,7 @@ TrackStorage.prototype.getTrackFromFile = function (trackId, callback, errCallba
         if (data) {
             console.log("got file by id: ", data.substring(0, 300), "...");
 
-            var tcxParser = new TcxParser(trackId);
+            var tcxParser = TcxParser.create(trackId);
             tcxParser.parse(data, function (track) {
                 callback(track);
             });
@@ -32,9 +32,6 @@ TrackStorage.prototype.getTrackFromFile = function (trackId, callback, errCallba
     });
 };
 
-exports.TrackStorage = TrackStorage;
-
-
-module.exports.create = function (x1, y1, x2, y2) {
-    return new Line(x1, y1, x2, y2);
+module.exports.create = function () {
+    return new TrackStorage();
 };
