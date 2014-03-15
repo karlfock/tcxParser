@@ -2,7 +2,20 @@
 	"folders":
 	[
 		{
-			"path": "/Users/karlfock/GoogleDrive/dev/js/tcxParser"
-		}
-	]
+			"path": "/Users/karlfock/GoogleDrive/dev/js/tcxParser",
+            "folder_exclude_patterns": ["node_modules", "bower_components"],
+            "file_exclude_patterns": ["bundle.js"]
+        }                   
+	],
+    "settings":
+    {
+        "tab_size": 4
+    },
+    "build_systems":
+    [
+        {
+            "name": "List",
+            "cmd": ["ls"]
+        }
+    ]
 }
