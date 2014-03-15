@@ -1,3 +1,4 @@
+var path = require('path');
 describe('angularjs homepage', function() {
 
     var ptor;
@@ -24,5 +25,41 @@ describe('angularjs homepage', function() {
         // Assert that the text element has the expected value.
         // Protractor patches 'expect' to understand promises.
         expect(greeting.getText()).toEqual('Hello Julie!');
+    });
+
+
+
+    it('should upload single file', function() {
+        var fileToUpload = '../../node/test/resources/test.tcx';
+        var absolutePath = path.resolve(__dirname, fileToUpload);
+        var uploaded = $('input[type="file"]').sendKeys(absolutePath);
+
+
+        // TODO: how to verify upload? clean up file
+        // select a href=#/viewTrack/eb9bc810-ac90-11e3-93a3-af46be910176
+        // to get id of uploaded
+        var link = $(".trackLink"); // some kind of promise object...
+
+
+        // console.log("****** typeof link:", link.getTagName());
+
+        var currentUrl;
+        browser.getCurrentUrl().then(function(url) {
+            currentUrl = url;
+        }).then(function() {
+            return browser.wait(function() {
+                return browser.getCurrentUrl().then(function(url) {
+                    console.log("*** url:", url);
+                    return url !== currentUrl;
+                });
+            });
+        }).then(function() {
+            console.log("*** continue testing");
+        });
+
+        expect(true).toEqual(true);
+
+
+
     });
 });
