@@ -11,7 +11,7 @@
 
 <div ng-repeat="track in tracks">
     <p>
-        <a class="trackLink" href="#/viewTrack/{{track.id}}">
+        <a id="{{track.id}}" class="trackLink" href="#/viewTrack/{{track.id}}">
             date: {{track.date}},
             distance: {{track.distanceInKm}} km
         </a>

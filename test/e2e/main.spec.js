@@ -1,4 +1,6 @@
-var path = require('path');
+var path = require('path'),
+    fs = require('fs');
+
 describe('angularjs homepage', function() {
 
     var ptor;
@@ -29,37 +31,36 @@ describe('angularjs homepage', function() {
 
 
 
-    it('should upload single file', function() {
-        var fileToUpload = '../../node/test/resources/test.tcx';
-        var absolutePath = path.resolve(__dirname, fileToUpload);
-        var uploaded = $('input[type="file"]').sendKeys(absolutePath);
+    it('should upload single file and save in upload foler', function() {
+        var fileToUpload = '../../node/test/resources/test.tcx',
+            absolutePath = path.resolve(__dirname, fileToUpload),
+            uploaded = $('input[type="file"]').sendKeys(absolutePath),
+            currentUrl;
 
-
-        // TODO: how to verify upload? clean up file
-        // select a href=#/viewTrack/eb9bc810-ac90-11e3-93a3-af46be910176
-        // to get id of uploaded
-        var link = $(".trackLink"); // some kind of promise object...
-
-
-        // console.log("****** typeof link:", link.getTagName());
-
-        var currentUrl;
         browser.getCurrentUrl().then(function(url) {
             currentUrl = url;
         }).then(function() {
             return browser.wait(function() {
                 return browser.getCurrentUrl().then(function(url) {
-                    console.log("*** url:", url);
+                    console.log("Wait for url to change to /uploadView:", url);
                     return url !== currentUrl;
                 });
             });
         }).then(function() {
-            console.log("*** continue testing");
+            var link = $('.trackLink');
+            console.log("Verify that uploaded file exists");
+
+            link.getAttribute("id").then(function(id) {
+
+                var uploadedFilePath = path.resolve(__dirname, "../../uploaded", id);
+                console.log("File path of uploaded file:", uploadedFilePath);
+
+                fs.exists(uploadedFilePath, function(exists) {
+                    console.log("File exists: ", exists);
+                    expect(exists).toEqual(true);
+                });
+
+            });
         });
-
-        expect(true).toEqual(true);
-
-
-
     });
 });
