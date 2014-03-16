@@ -1,4 +1,5 @@
-// format returned from xml2js:
+// not used in code, just for reference, this is how
+// the json looks after returned form xml2js:
 
 var db = {
     "TrainingCenterDatabase": {

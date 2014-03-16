@@ -8,9 +8,9 @@
  ✔ sort by date @done (14-03-09 00:29)
 
  add bash script to update selenium driver:
- ☐ ./node_modules/protractor/bin/webdriver-manager update
- ☐ cp ./node_modules/protractor/example/chromeOnlyConf.js protractor_conf.js
- ☐ ./node_modules/protractor/bin/webdriver-manager start
+ ✔ ./node_modules/protractor/bin/webdriver-manager update @done (14-03-16 21:34)
+ ✔ cp ./node_modules/protractor/example/chromeOnlyConf.js protractor_conf.js @done (14-03-16 21:34)
+ ✔ ./node_modules/protractor/bin/webdriver-manager start @done (14-03-16 21:34)
  
 
 

@@ -3,3 +3,4 @@ bower_components
 uploaded
 .idea
 bundle.js
+parsedTcxJson.js

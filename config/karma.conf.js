@@ -14,7 +14,7 @@ module.exports = function (config) {
         colors: true,
         browsers: ['Chrome'],
         captureTimeout: 60000,
-        singleRun: false,
+        singleRun: true,
 
         // Browserify config
         browserify: {

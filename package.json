@@ -5,6 +5,19 @@
         "test": "test"
     },
     "readmeFilename": "README.md",
+    "scripts": {
+        "createDebugBundle": "browserify --debug ./app/js/main.js -o bundle.js",
+        "removeUploadedFiles": "cd uploaded && rm -f *",
+        "start": "npm run createDebugBundle && node ./node/index.js",
+        "generateTestData": "cd node && node ./test/resources/generateTestData.js > ../test/resources/parsedTcxJson.js",
+        "testNode": "cd node && mocha",
+        "testKarma": "./node_modules/karma/bin/karma start ./config/karma.conf.js",
+        "test": "npm run generateTestData && npm run testNode && npm run testKarma",
+        "update-webdriver": "./node_modules/protractor/bin/webdriver-manager update",
+        "start-webdriver": "./node_modules/protractor/bin/webdriver-manager start",
+        "testE2e": "./node_modules/protractor/bin/protractor config/protractor_conf.js",
+        "testAll": "npm run test && npm run testE2e"
+    },
     "devDependencies": {
         "browserify": "~3.30.1",
         "karma-chrome-launcher": "~0.1.0",

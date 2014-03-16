@@ -6,8 +6,6 @@ var fs = require("fs"),
 function TestHelper() {
     this.tcxParser = TcxParser.create("trackId");
     this.tcxXml = fs.readFileSync("./test/resources/test.tcx", "utf8");
-
-    // this file fails...
     this.tcxXml2 = fs.readFileSync("./test/resources/test2.tcx", "utf8");
 }
 
