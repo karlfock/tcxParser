@@ -10,7 +10,7 @@ module.exports = function($scope, $routeParams, uploadedTracks, $http) {
     var track = uploadedTracks.getTrackById(trackId);
 
     if (track) {
-        console.log("get track from uploaded this session");
+        console.log("get track uploaded this session");
         $scope.trackInfo = {
             message: "uploaded this session",
             track: {
@@ -20,14 +20,13 @@ module.exports = function($scope, $routeParams, uploadedTracks, $http) {
             }
         };
     } else {
-        console.log("get track server");
+        console.log("get track from server");
         // otherwise get from db/file server
         $http({
             method: 'GET',
             url: '/viewTrack/?trackId=' + trackId
         }).
         success(function(data, status, headers, config) {
-            debugger;
             console.log("got track from server:", data);
 
             track = Track.create(data)
@@ -42,7 +41,6 @@ module.exports = function($scope, $routeParams, uploadedTracks, $http) {
             };
         }).
         error(function(data, status, headers, config) {
-            debugger;
             console.log(data);
 
             $scope.trackInfo = {
