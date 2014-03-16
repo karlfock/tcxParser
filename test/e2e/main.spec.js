@@ -29,24 +29,29 @@ describe('angularjs homepage', function() {
         expect(greeting.getText()).toEqual('Hello Julie!');
     });
 
+    function waitForUrlChange() {
+        var currentUrl;
+        return browser.getCurrentUrl().then(function(url) {
+            currentUrl = url;
+        }).then(function() {
+            return browser.wait(function() {
+                return browser.getCurrentUrl().then(function(url) {
+                    console.log("Current url:", url);
+                    return url !== currentUrl;
+                });
+            });
+        });
+    }
 
 
     it('should upload single file and save in upload foler', function() {
         var fileToUpload = '../../node/test/resources/test.tcx',
             absolutePath = path.resolve(__dirname, fileToUpload),
-            uploaded = $('input[type="file"]').sendKeys(absolutePath),
-            currentUrl;
+            uploaded = $('input[type="file"]').sendKeys(absolutePath);
 
-        browser.getCurrentUrl().then(function(url) {
-            currentUrl = url;
-        }).then(function() {
-            return browser.wait(function() {
-                return browser.getCurrentUrl().then(function(url) {
-                    console.log("Wait for url to change to /uploadView:", url);
-                    return url !== currentUrl;
-                });
-            });
-        }).then(function() {
+        console.log("Wait for url to change to /uploadView");
+
+        waitForUrlChange().then(function() {
             var link = $('.trackLink');
             console.log("Verify that uploaded file exists");
 
@@ -56,7 +61,7 @@ describe('angularjs homepage', function() {
                 console.log("File path of uploaded file:", uploadedFilePath);
 
                 fs.exists(uploadedFilePath, function(exists) {
-                    console.log("File exists: ", exists);
+                    console.log("File exists:", exists);
                     expect(exists).toEqual(true);
                 });
 
