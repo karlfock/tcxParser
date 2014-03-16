@@ -25,11 +25,7 @@ UploadedTracks.prototype.serialize = function() {
 
 UploadedTracks.prototype.getTracksSummary = function() {
     var tracks = this.getTracks().map(function(track) {
-        return {
-            id: track.id,
-            date: track.getTrackSummary().getDate(),
-            distanceInKm: track.getTrackSummary().getDistanceInKm()
-        };
+        return track.getTrackSummary();
     });
 
     tracks.sort(function(a, b) {
@@ -61,11 +57,9 @@ UploadedTracks.prototype._getTracksFromSessionStorage = function() {
         tracks = JSON.parse(tracks);
         console.log("Got", tracks.length, "tracks from session");
 
-        for (var i = 0; i < tracks.length; i++) {
-            var track = tracks[i];
-            tracks[i] = Track.create(track);
-        }
-        return tracks;
+        return tracks.map(function (track) {
+            return Track.create(track);
+        });
     }
     return [];
 };

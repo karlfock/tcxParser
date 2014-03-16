@@ -35,8 +35,9 @@ describe('Track', function () {
     describe('getTrackSummary()', function () {
         it("should return an object containing summary info for the track", function () {
             var trackSummary = track.getTrackSummary();
-            expect(trackSummary.getDistanceInKm()).toEqual(7.1);
-            expect(trackSummary.getDate()).toEqual("2013-12-17");
+            expect(trackSummary.id).toEqual("trackId");
+            expect(trackSummary.distanceInKm).toEqual(7.1);
+            expect(trackSummary.date).toEqual("2013-12-17");
         });
     });
 

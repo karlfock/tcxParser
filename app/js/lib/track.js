@@ -52,30 +52,27 @@ Track.prototype.getLastTrackPoint = function() {
 };
 
 Track.prototype.getTrackSummary = function() {
-
-
     if (!this._trackSummary) {
-
-        var lastTrackPoint = this.getLastTrackPoint(),
-            trackDate = this._date;
-
         this._trackSummary = {
-            getDistanceInKm: function(decimals) {
-                decimals = decimals || 1;
-                var kms = lastTrackPoint.distanceMeters / 1000,
-                    truncBase = Math.pow(10, decimals);
-                return Math.round(kms * truncBase) / truncBase;
-            },
-            getDate: function(format) {
-                format = format || "YYYY-MM-DD";
-                return moment(trackDate).format(format);
-
-            }
+            id: this.getId(),
+            distanceInKm: this.getDistanceInKm(),
+            date: this.getDate()
         };
     }
-
     return this._trackSummary;
 
+};
+
+Track.prototype.getDistanceInKm = function(decimals) {
+    decimals = decimals || 1;
+    var kms = this.getLastTrackPoint().distanceMeters / 1000,
+        truncBase = Math.pow(10, decimals);
+    return Math.round(kms * truncBase) / truncBase;
+};
+
+Track.prototype.getDate = function(format) {
+    format = format || "YYYY-MM-DD";
+    return moment(this._date).format(format);
 };
 
 Track.prototype.getId = function() {
