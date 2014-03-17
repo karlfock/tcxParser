@@ -1,3 +1,4 @@
+
 <p>{{message}} </p>
 <p ng-show="trackSummary">
     
@@ -5,3 +6,12 @@
     date: {{trackSummary.date}},
     distance: {{trackSummary.distanceInKm}} km
 </p>
+
+
+
+<div ng-show="trackSummary">
+    <label><input id="sort-graph" type="checkbox"> Sort values</label>
+
+
+    <div id="track-laps-graph"></div>
+</div>

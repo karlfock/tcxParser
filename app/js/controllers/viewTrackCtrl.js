@@ -1,7 +1,8 @@
 "use strict";
 /* global console, require, module */
 
-var Track = require("../lib/track");
+var Track = require("../lib/track"),
+    TrackGraph = require("../lib/trackGraph");
 
 function ViewTrackCtrl($scope, $routeParams, uploadedTracks, $http) {
     this.$scope = $scope;
@@ -38,9 +39,14 @@ ViewTrackCtrl.prototype = {
         });
     },
     viewTrack: function(message) {
+        var trackGraph;
+
         this.$scope.message = message;
         if (this.track) {
             this.$scope.trackSummary = this.track.getTrackSummary();
+
+            trackGraph = TrackGraph.create(this.track);
+            trackGraph.init();
         }
     }
 };

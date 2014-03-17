@@ -4,15 +4,12 @@
     <meta http-equiv="Content-Type"
           content="text/html; charset=UTF-8"/>
     <title>tcxParser2</title>
+    <link rel="stylesheet" href="./app/css/graph.css">
 </head>
 <body>
 
 <div ng-app="myApp">
     <div ng-controller="UploadCtrl">
-        <!-- to test protractor config -->
-        <input type="text" ng-model="firstName">
-        <h1>Hello {{firstName}}!</h1>
-
         <input type="file" ng-file-select="onFileSelect($files)" multiple>
 
         <div ngFileDrop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class"
