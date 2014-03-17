@@ -1,39 +1,51 @@
 "use strict";
+/* global console, require, module */
 
-var Track = require("../lib/track"),
-    track;
+var Track = require("../lib/track");
+
+function ViewTrackCtrl($scope, $routeParams, uploadedTracks, $http) {
+    this.$scope = $scope;
+    this.$http = $http;
+    this.trackId = $routeParams.trackId;
+    this.track = uploadedTracks.getTrackById(this.trackId);
+}
+
+ViewTrackCtrl.prototype = {
+    init: function() {
+        if (this.track) {
+            console.log("get track uploaded this session");
+            this.viewTrack("uploaded this session");
+
+        } else {
+            this.getTrackRemote();
+        }
+    },
+    getTrackRemote: function() {
+        var self = this; // TODO: bind "this" to functions instead?
+        console.log("get track from server");
+        this.$http({
+            method: "GET",
+            url: "/viewTrack/?trackId=" + this.trackId
+        }).
+        success(function(data) {
+            console.log("got track from server:", data);
+            self.track = Track.create(data);
+            self.viewTrack("retrieved from server");
+        }).
+        error(function(data) {
+            console.log(data);
+            self.viewTrack("file with id: " + self.trackId + " not found on server");
+        });
+    },
+    viewTrack: function(message) {
+        this.$scope.message = message;
+        if (this.track) {
+            this.$scope.trackSummary = this.track.getTrackSummary();
+        }
+    }
+};
 
 module.exports = function($scope, $routeParams, uploadedTracks, $http) {
-    // get track from uploaded list from this session
-
-    var trackId = $routeParams.trackId;
-    var track = uploadedTracks.getTrackById(trackId);
-
-
-    if (track) {
-        console.log("get track uploaded this session");
-        // $scope.trackInfo = createTrackInfo(track, "uploaded this session");
-        $scope.message = "uploaded this session"
-        $scope.trackSummary = track.getTrackSummary();
-        
-    } else {
-        console.log("get track from server");
-        // otherwise get from db/file server
-        $http({
-            method: 'GET',
-            url: '/viewTrack/?trackId=' + trackId
-        }).
-        success(function(data, status, headers, config) {
-            console.log("got track from server:", data);
-
-            track = Track.create(data);
-
-            $scope.message = "retrieved from server";
-            $scope.trackSummary = track.getTrackSummary();
-        }).
-        error(function(data, status, headers, config) {
-            console.log(data);
-            $scope.message = "file with id: " + trackId + " not found on server";
-        });
-    }
+    var viewTrackCtrl = new ViewTrackCtrl($scope, $routeParams, uploadedTracks, $http);
+    viewTrackCtrl.init();
 };
