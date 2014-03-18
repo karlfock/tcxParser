@@ -5,3 +5,5 @@ uploaded
 bundle.js
 parsedTcxJson.js
 todo.TODO
+tcxParser.ALL.sublime-workspace
+tcxParser.ALL.sublime-project
