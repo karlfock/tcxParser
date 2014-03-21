@@ -6,15 +6,15 @@ var Track = require("../../app/js/lib/track");
 var tcxData = require("../resources/parsedTcxJson.js");
 var track = Track.create(tcxData);
 
-describe('Track', function () {
+describe("Track", function () {
 
-    describe('getTrackId()', function () {
+    describe("getTrackId()", function () {
         it("should get a uuid for the track", function () {
             expect(track.getId()).toEqual("trackId");
         });
     });
 
-    describe('getTrackPoints()', function () {
+    describe("getTrackPoints()", function () {
         it("should get the track points of a track", function () {
             var firstTrackPoint = track.getTrackPoints()[0],
                 lastTrackPoint = track.getTrackPoints()[NBR_TRACK_POINTS_IN_TEST_FILE - 1];
@@ -25,14 +25,14 @@ describe('Track', function () {
         });
     });
 
-    describe('getLastTrackPoint()', function () {
+    describe("getLastTrackPoint()", function () {
         it("should get the last track point containing track data", function () {
             var lastTrackPoint = track.getLastTrackPoint();
             expect(lastTrackPoint.distanceMeters).toEqual("7090.3901367");
         });
     });
 
-    describe('getTrackSummary()', function () {
+    describe("getTrackSummary()", function () {
         it("should return an object containing summary info for the track", function () {
             var trackSummary = track.getTrackSummary();
             expect(trackSummary.id).toEqual("trackId");
@@ -41,13 +41,13 @@ describe('Track', function () {
         });
     });
 
-    describe('getTpLength()', function () {
+    describe("getTpLength()", function () {
         it("should get the length of all track points", function () {
             expect(track.getTpLength()).toEqual(NBR_TRACK_POINTS_IN_TEST_FILE);
         });
     });
 
-    describe('createSubTrack()', function () {
+    describe("createSubTrack()", function () {
         it("should create a sub track of specified start and end index", function () {
 
             expect(track.createSubTrack({

@@ -1,9 +1,10 @@
+"use strict";
+
 var formidable = require("formidable"),
-    moment = require("moment"),
     TcxParser = require("./../lib/tcxParser"),
     TrackStorage = require("./../lib/trackStorage"),
-    uuid = require('node-uuid'),
-    fs = require('fs');
+    uuid = require("node-uuid"),
+    fs = require("fs");
 
 
 function upload(request, response) {
@@ -16,9 +17,9 @@ function upload(request, response) {
 
     console.log("about to parse, form");
 
-    form.on('progress', function(bytesReceived, bytesExpected) {
+    form.on("progress", function(bytesReceived, bytesExpected) {
         var progress = {
-            type: 'progress',
+            type: "progress",
             bytesReceived: bytesReceived,
             bytesExpected: bytesExpected
         };
@@ -49,7 +50,7 @@ function upload(request, response) {
             "Content-Type": "text/html"
         });
 
-        fs.readFile(tmpFilePath, 'utf8', function(err, data) {
+        fs.readFile(tmpFilePath, "utf8", function(err, data) {
             if (err) {
                 console.log("there was an error: ", err);
                 response.writeHead(500);
@@ -86,7 +87,7 @@ function viewTrack(request, response) {
     // get track by id, from file or db or whatever
     trackStorage = TrackStorage.create();
     trackStorage.getTrackById(trackId, function(track) {
-        console.log("got track by id, sending response...")
+        console.log("got track by id, sending response...");
         response.writeHead(200, {
             "Content-Type": "text/html"
         });
@@ -95,7 +96,7 @@ function viewTrack(request, response) {
     }, function() {
         console.log("Error callback: file not found");
         response.writeHead(500, {
-            'Content-Type': 'text/html'
+            "Content-Type": "text/html"
         });
         response.write("File with id " + trackId + " not found");
         response.end();

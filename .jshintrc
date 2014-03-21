@@ -9,8 +9,13 @@
     "module": true,
     "require": true,
     "angular": true,
-    "exports": true
+    "exports": true,
+    "expect": true,
+    "describe": true,
+    "it": true,
+    "beforeEach": true
   },
+  "validthis": true,
   "globalstrict": true,
   "quotmark": true,
   "smarttabs": true,

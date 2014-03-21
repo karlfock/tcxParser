@@ -12,4 +12,4 @@ function TestHelper() {
 
 module.exports.create = function () {
     return new TestHelper();
-}
+};

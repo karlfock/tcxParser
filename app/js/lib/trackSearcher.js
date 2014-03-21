@@ -99,4 +99,4 @@ TrackSearcher.prototype.getNextPoint = function (trackPoint) {
 module.exports.create = function  (track) {
     // TODO: type check
     return new TrackSearcher(track);
-}
+};

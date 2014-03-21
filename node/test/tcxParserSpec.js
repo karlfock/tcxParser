@@ -9,7 +9,7 @@ var expect = require("chai").expect,
     tcxParser = testHelper.tcxParser;
 
 describe("TcxParser", function() {
-    describe('parse()', function() {
+    describe("parse()", function() {
 
         it("should parse tcx files to JS object", function() {
 

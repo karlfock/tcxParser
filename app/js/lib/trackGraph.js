@@ -1,5 +1,4 @@
 "use strict";
-/* global module, require */
 
 var d3 = require("d3");
 

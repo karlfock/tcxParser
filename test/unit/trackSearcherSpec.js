@@ -1,13 +1,11 @@
 "use strict";
 
-var NBR_TRACK_POINTS_IN_TEST_FILE = 454;
-
 var Track = require("../../app/js/lib/track");
 var TrackSearcher = require("../../app/js/lib/trackSearcher");
 var tcxData = require("../resources/parsedTcxJson.js");
 
 describe("TrackSearcher", function () {
-    describe('getFastestSubTrackByDistance()', function () {
+    describe("getFastestSubTrackByDistance()", function () {
         it("get the fastest sub track with a specified distance", function () {
 
             var subTrack,

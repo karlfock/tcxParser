@@ -1,4 +1,6 @@
-var parseString = require('xml2js').parseString,
+"use strict";
+
+var parseString = require("xml2js").parseString,
     trackPointId;
 
 function TcxParser(trackId) {
@@ -17,11 +19,11 @@ TcxParser.prototype.parse = function(tcxXml, callback) {
             id: trackId,
             date: activity.Id[0],
 
-            // map the structure to don't have arrays with just one element, 
+            // map the structure to don"t have arrays with just one element, 
             // as in the original xml.
             laps: activity.Lap.map(function(lap, lapIndex) {
                 return {
-                    startTime: lap["$"].StartTime,
+                    startTime: lap.$.StartTime,
                     calories: lap.Calories[0],
                     distanceMeters: lap.DistanceMeters[0],
                     intensity: lap.Intensity[0],
@@ -59,4 +61,4 @@ function getTrackPointsFromLap(lap, lapIndex) {
 
 module.exports.create = function  (trackId) {
     return new TcxParser(trackId);
-}
+};

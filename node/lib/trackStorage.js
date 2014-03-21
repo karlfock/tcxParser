@@ -1,3 +1,5 @@
+"use strict";
+
 var fs = require("fs"),
     TcxParser = require("./../lib/tcxParser");
 
@@ -16,7 +18,7 @@ TrackStorage.prototype.getTrackFromFile = function (trackId, callback, errCallba
 
     var path = "./uploaded/" + trackId;
 
-    fs.readFile(path, 'utf8', function (err, data) {
+    fs.readFile(path, "utf8", function (err, data) {
         if (err) {
             console.log("getTrackFromFile: file not found", path);
             errCallback();

@@ -13,7 +13,7 @@ function Track(trackData) {
 
 Track.prototype.getTrackPoints = function() {
     if (!this._trackPoints) {
-        this._trackPoints = this.laps.reduce(function(prev, curr, idx) {
+        this._trackPoints = this.laps.reduce(function(prev, curr) {
             return prev.concat(curr.trackPoints);
         }, []);
     }
