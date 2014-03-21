@@ -6,34 +6,39 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON("package.json"),
 
         jshint: {
-            // define the files to lint
             files: [
                 "gruntfile.js",
                 "app/**/*.js",
                 "node/**/*.js",
                 "test/**/*.js"
             ],
-            // configure JSHint (documented at http://www.jshint.com/docs/)
             options: {
-                // more options here if you want to override JSHint defaults
-                globals: {
-                    jQuery: true,
-                    console: true,
-                    module: true
-                },
                 jshintrc: ".jshintrc"
             }
         },
 
         watch: {
-            files: ["<%= jshint.files %>"],
-            tasks: ["jshint"]
+            files: ["app/**/*.js"],
+            tasks: ["browserify"],
+            options: {
+                livereload: true,
+            },
+        },
+
+        browserify: {
+            js: {
+                src: "app/js/main.js",
+                dest: "bundle.js",
+            },
         }
     });
 
+    grunt.registerTask("server", "Start a custom web server", function() {
+        grunt.log.writeln("Started web server on port 3000");
+        require("./node/index.js");
+    });
+
+    grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-watch");
-
-    // grunt.registerTask("test", ["jshint"]);
-
 };
