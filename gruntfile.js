@@ -18,11 +18,31 @@ module.exports = function(grunt) {
         },
 
         watch: {
-            files: ["app/**/*.js"],
-            tasks: ["browserify"],
-            options: {
-                livereload: true,
+            node: {
+                files: [
+                    "node/**/*.js"
+                ],
+                tasks: ["nodemon"],
             },
+
+            web: {
+                files: [
+                    "app/**/*.js",
+                ],
+                tasks: ["browserify"],
+                options: {
+                    livereload: true,
+                }
+            }
+        },
+
+        concurrent: {
+            options: {
+                logConcurrentOutput: true
+            },
+            watchNodeAndWeb: {
+                tasks: ["watch:node", "watch:web"]
+            }
         },
 
         browserify: {
@@ -30,15 +50,22 @@ module.exports = function(grunt) {
                 src: "app/js/main.js",
                 dest: "bundle.js",
             },
+        },
+
+        nodemon: {
+            dev: {
+                script: "node/index.js"
+            }
         }
     });
 
-    grunt.registerTask("server", "Start a custom web server", function() {
-        grunt.log.writeln("Started web server on port 3000");
-        require("./node/index.js");
-    });
 
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-watch");
+    grunt.loadNpmTasks("grunt-nodemon");
+    grunt.loadNpmTasks("grunt-concurrent");
+    
+    grunt.registerTask("start", ["concurrent:watchNodeAndWeb"]);
+
 };
