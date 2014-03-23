@@ -29,10 +29,10 @@ module.exports = function(grunt) {
                 files: [
                     "app/**/*.js",
                 ],
-                tasks: ["browserify"],
-                options: {
-                    livereload: true,
-                }
+                tasks: ["browserify"]//,
+                // options: {
+                //     livereload: true,
+                // }
             }
         },
 

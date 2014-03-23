@@ -13,7 +13,8 @@
     "expect": true,
     "describe": true,
     "it": true,
-    "beforeEach": true
+    "beforeEach": true,
+    "__dirname": true
   },
   "validthis": true,
   "globalstrict": true,

@@ -1,8 +1,8 @@
 "use strict";
 
 var formidable = require("formidable"),
-    TcxParser = require("./../lib/tcxParser"),
-    TrackStorage = require("./../lib/trackStorage"),
+    TcxParser = require("./lib/tcxParser"),
+    TrackStorage = require("./lib/trackStorage"),
     uuid = require("node-uuid"),
     fs = require("fs");
 

@@ -1,7 +1,7 @@
 "use strict";
 
 var fs = require("fs"),
-    TcxParser = require("./../lib/tcxParser");
+    TcxParser = require("./tcxParser");
 
 function TrackStorage() {
 }
