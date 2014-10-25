@@ -66,6 +66,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-nodemon");
     grunt.loadNpmTasks("grunt-concurrent");
     
+    // currently have to edit some node file to start nodemon...
     grunt.registerTask("start", ["concurrent:watchNodeAndWeb"]);
-
 };
